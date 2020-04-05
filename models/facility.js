@@ -15,7 +15,11 @@ const FacilitySchema = new Schema({
     //地址
     address: String,
     //面积
-    area: Number
+    area: Number,
+     //空间
+     geometries: [],
+     //属性
+     properties: {}
 
 }, {collection: 'facilities'});
 const Facility = mongoose.model('Facility', FacilitySchema);
