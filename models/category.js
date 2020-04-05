@@ -7,11 +7,7 @@ const CategorySchema = new Schema({
     //编码
     code: String,
     //描述
-    desc: String,
-    //空间
-    geometries: [],
-    //属性
-    properties: {}
+    desc: String
 }, {collection: 'categories'});
 const Category = mongoose.model('Category', CategorySchema);
 

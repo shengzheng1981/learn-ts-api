@@ -16,12 +16,12 @@ const FacilitySchema = new Schema({
     address: String,
     //面积
     area: Number,
-     //空间
-     geometries: [],
-     //属性
-     properties: {}
+    //空间
+    geometry: {},
+    //属性
+    properties: {}
 
-}, {collection: 'facilities'});
+}, { collection: 'facilities' });
 const Facility = mongoose.model('Facility', FacilitySchema);
 
 module.exports = Facility;
