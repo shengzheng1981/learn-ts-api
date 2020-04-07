@@ -34,6 +34,45 @@ router.post('/create', (req, res, next) => {
     });
 });
 
+router.post('/bulk', (req, res, next) => {
+    const facilities = [];
+    Array.isArray(req.body.created) && req.body.created.forEach(facility => {
+        facilities.push({
+            insertOne: {
+                document: facility
+            }
+        })
+    });
+    Array.isArray(req.body.deleted) && req.body.deleted.forEach(facility => {
+        facilities.push({
+            deleteOne: {
+                filter: {_id: facility._id}
+            }
+        })
+    });
+    Array.isArray(req.body.updated) && req.body.updated.forEach(facility => {
+        facilities.push({
+            updateOne: {
+                filter: {_id: facility._id},
+                update: facility
+            }
+        })
+    });
+    if (facilities.length > 0) {
+        Facility.bulkWrite(facilities).then( result => {
+            res.status(200);
+            res.json({
+                result: true
+            });
+        });
+    } else {
+        res.status(200);
+        res.json({
+            result: true
+        });
+    }
+});
+
 router.get('/:id/remove', (req, res, next) => {
     Facility.findOneAndRemove({_id: req.params.id}, (err, result) => {
         if (err) {
